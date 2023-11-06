@@ -18,19 +18,23 @@
   };
 
   outputs = inputs @ { nixpkgs, flake-utils, ... }:
-    flake-utils.lib.eachDefaultSystem (system:
+    let
+      mkOverlays = { pkgs }: [
+        (import ./lib/overlay.nix { inherit pkgs inputs; })
+      ];
+    in
+    (flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs {
           inherit system;
-          overlays = [];
+          overlays = mkOverlays { inherit pkgs; };
         };
-
-        opsctl = pkgs.callPackage ./lib/opsctl.nix { src = inputs.opsctl; };
-        kubectl-gs = pkgs.callPackage ./lib/kubectl-gs.nix { src = inputs.kubectl-gs; };
       in {
         packages = {
-          inherit opsctl kubectl-gs;
-          default = opsctl;
+          inherit (pkgs) opsctl kubectl-gs;
+          default = pkgs.opsctl;
         };
-      });
+      })) // {
+        lib = { inherit mkOverlays; };
+      };
 }
