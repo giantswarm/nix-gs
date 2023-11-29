@@ -21,16 +21,16 @@
     "kubectl-gs": {
       "flake": false,
       "locked": {
-        "lastModified": 1698321372,
-        "narHash": "sha256-mJ6pbaEISBS1yHfQkpfFNVUM5ARrQ2xsy3N8A1p4HSk=",
+        "lastModified": 1701250141,
+        "narHash": "sha256-lEIT+Jnh83AGgV7SSkyb8yZkxmVUR0E03rSfNJ1ZAwk=",
         "owner": "giantswarm",
         "repo": "kubectl-gs",
-        "rev": "454e2518644f538f50afa3b7a08c37385457f206",
+        "rev": "171d47429f83e71e098f8bce7f9cbd03027fe6d2",
         "type": "github"
       },
       "original": {
         "owner": "giantswarm",
-        "ref": "v2.45.3",
+        "ref": "v2.48.0",
         "repo": "kubectl-gs",
         "type": "github"
       }
