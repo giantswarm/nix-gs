@@ -5,7 +5,7 @@ buildGoModule {
   pname = "opctl";
   version = "5.3.0";
 
-  vendorSha256 = "sha256-QOhBXvvvMkLv1GMQzLzGikLilPN/qF7unM02955veEk=";
+  vendorHash = "sha256-QOhBXvvvMkLv1GMQzLzGikLilPN/qF7unM02955veEk=";
 
   CGO_ENABLED = 0;
 
