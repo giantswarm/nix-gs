@@ -1,13 +1,27 @@
 ## Test packge builds
 
 ### `opsctl`
+
+Build the package:
 ```
 nix build -v -L .#opsctl
 ```
 
+Run the binary:
+```
+./result/bin/opsctl --help
+```
+
 ### `kubectl-gs`
+
+Build the package:
 ```
 nix build -v -L .#kubectl-gs
+```
+
+Run the binary:
+```
+./result/bin/kubectl-gs --help
 ```
 
 
