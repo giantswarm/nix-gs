@@ -7,6 +7,8 @@
     flake-utils.url = "github:numtide/flake-utils";
 
     opsctl = {
+      # TODO: use tag instead commit hash
+      # There seems to be a bug with private repositories because the tag reference doesn't work
       url = "git+ssh://git@github.com/giantswarm/opsctl.git?rev=18146a44e3d9c55fb4657ac5b80eb33721561891";
       flake = false;
     };
