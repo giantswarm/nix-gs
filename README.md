@@ -1,6 +1,6 @@
 ## Test packge builds
 
-### `opsctl'
+### `opsctl`
 ```
 nix build -v -L .#opsctl
 ```
