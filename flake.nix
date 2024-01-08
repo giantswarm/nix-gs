@@ -19,15 +19,13 @@
 
   outputs = inputs @ { nixpkgs, flake-utils, ... }:
     let
-      mkOverlays = { pkgs }: [
-        (import ./lib/overlay.nix { inherit pkgs inputs; })
-      ];
+      overlay = import ./lib/overlay.nix { inherit inputs; };
     in
     (flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs {
           inherit system;
-          overlays = mkOverlays { inherit pkgs; };
+          overlays = [overlay];
         };
       in {
         packages = {
@@ -35,6 +33,6 @@
           default = pkgs.opsctl;
         };
       })) // {
-        lib = { inherit mkOverlays; };
+        inherit overlay;
       };
 }
