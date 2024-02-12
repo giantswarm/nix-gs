@@ -5,11 +5,11 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1694529238,
-        "narHash": "sha256-zsNZZGTGnMOf9YpHKJqMSsa0dXbfmxeoJ7xHlrt+xmY=",
+        "lastModified": 1705309234,
+        "narHash": "sha256-uNRRNRKmJyCRC/8y1RqBkqWBLM034y4qN7EprSdmgyA=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "ff7b65b44d01cf9ba6a71320833626af21126384",
+        "rev": "1ef2e671c3b0c19053962c07dbda38332dcebf26",
         "type": "github"
       },
       "original": {
@@ -21,27 +21,27 @@
     "kubectl-gs": {
       "flake": false,
       "locked": {
-        "lastModified": 1704883360,
-        "narHash": "sha256-VXN2NHlT1CcK37YzN/JgkE8b40w7n1pPbjE8lmU8NyA=",
+        "lastModified": 1706779206,
+        "narHash": "sha256-It9KynPdNnJ5g4/3BD9bm3n04sZjx8D8SDm6r+1+tSE=",
         "owner": "giantswarm",
         "repo": "kubectl-gs",
-        "rev": "63dc338fe562928c2080b8eae6c6b2ee5aaf9575",
+        "rev": "5cd7f63e101c620623f308dfde09481108f409f2",
         "type": "github"
       },
       "original": {
         "owner": "giantswarm",
-        "ref": "v2.51.0",
+        "ref": "v2.52.1",
         "repo": "kubectl-gs",
         "type": "github"
       }
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1699099776,
-        "narHash": "sha256-X09iKJ27mGsGambGfkKzqvw5esP1L/Rf8H3u3fCqIiU=",
+        "lastModified": 1707546158,
+        "narHash": "sha256-nYYJTpzfPMDxI8mzhQsYjIUX+grorqjKEU9Np6Xwy/0=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "85f1ba3e51676fa8cc604a3d863d729026a6b8eb",
+        "rev": "d934204a0f8d9198e1e4515dd6fec76a139c87f0",
         "type": "github"
       },
       "original": {
