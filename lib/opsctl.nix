@@ -9,14 +9,8 @@ buildGoModule {
 
   CGO_ENABLED = 0;
 
-  nativeBuildInputs = [
-    musl
-  ];
-
   ldflags = [
     "-w"
-    "-linkmode external"
-    "-extldflags '-static -L${musl}/lib'"
     "-X 'github.com/giantswarm/opsctl/v5/pkg/project.gitSHA=${src.rev}'"
   ];
 }

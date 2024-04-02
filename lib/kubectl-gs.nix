@@ -11,14 +11,8 @@ buildGoModule {
 
   doCheck = false;
 
-  nativeBuildInputs = [
-    musl
-  ];
-
   ldflags = [
     "-w"
-    "-linkmode external"
-    "-extldflags '-static -L${musl}/lib'"
     "-X 'github.com/giantswarm/kubectl-gs/v2/pkg/project.gitSHA=${src.rev}'"
   ];
 }
