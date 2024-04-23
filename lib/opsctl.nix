@@ -3,9 +3,9 @@ buildGoModule {
   inherit src;
 
   pname = "opctl";
-  version = "5.3.0";
+  version = "6.0.0";
 
-  vendorHash = "sha256-QOhBXvvvMkLv1GMQzLzGikLilPN/qF7unM02955veEk=";
+  vendorHash = "sha256-hxDoRISqrLQplytfxV2SIAVWwyVsujsezKPVR04XGn0=";
 
   CGO_ENABLED = 0;
 

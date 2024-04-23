@@ -9,7 +9,7 @@
     opsctl = {
       # TODO: use tag instead commit hash
       # There seems to be a bug with private repositories because the tag reference doesn't work
-      url = "git+ssh://git@github.com/giantswarm/opsctl.git?rev=18146a44e3d9c55fb4657ac5b80eb33721561891";
+      url = "git+ssh://git@github.com/giantswarm/opsctl.git?rev=330f43c7afe4b626a31e0c2932c26347fcd3e85f";
       flake = false;
     };
 
