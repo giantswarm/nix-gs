@@ -3,9 +3,9 @@ buildGoModule {
   inherit src;
 
   pname = "kubectl-gs";
-  version = "2.53.0";
+  version = "2.55.0";
 
-  vendorHash = "sha256-wPnJ7mERALAt2Bmp3O7lbD9zxeX1FYi1u44kercuSnU=";
+  vendorHash = "sha256-Bb+EcjM9BsHxhlXLJCCVP0UKbpHbrIm0sclyLkisPbc=";
 
   CGO_ENABLED = 0;
 
