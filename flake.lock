@@ -21,27 +21,27 @@
     "kubectl-gs": {
       "flake": false,
       "locked": {
-        "lastModified": 1715690567,
-        "narHash": "sha256-Vf478+LJibmiUOHyptKEAP/QjuG8vZaGoXK2lSGV4cM=",
+        "lastModified": 1718011732,
+        "narHash": "sha256-q+h0kPQt+pnYiyEEzkW9FUAlK1Brm4OcAzT/f8KmvLk=",
         "owner": "giantswarm",
         "repo": "kubectl-gs",
-        "rev": "aca0bcda6725ac237272d39404e0da088ea9afc7",
+        "rev": "495c17973d27d1a6e99ae487e73ebc594a34349e",
         "type": "github"
       },
       "original": {
         "owner": "giantswarm",
-        "ref": "v2.55.0",
+        "ref": "v2.56.0",
         "repo": "kubectl-gs",
         "type": "github"
       }
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1715787315,
-        "narHash": "sha256-cYApT0NXJfqBkKcci7D9Kr4CBYZKOQKDYA23q8XNuWg=",
+        "lastModified": 1717786204,
+        "narHash": "sha256-4q0s6m0GUcN7q+Y2DqD27iLvbcd1G50T2lv08kKxkSI=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "33d1e753c82ffc557b4a585c77de43d4c922ebb5",
+        "rev": "051f920625ab5aabe37c920346e3e69d7d34400e",
         "type": "github"
       },
       "original": {
