@@ -14,7 +14,7 @@
     };
 
     kubectl-gs = {
-      url = "github:giantswarm/kubectl-gs?ref=v3.1.0";
+      url = "github:giantswarm/kubectl-gs?ref=v3.2.0";
       flake = false;
     };
   };
