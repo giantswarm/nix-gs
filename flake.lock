@@ -54,16 +54,16 @@
     "opsctl": {
       "flake": false,
       "locked": {
-        "lastModified": 1723214990,
-        "narHash": "sha256-p9vLZoWdeOrAys2iEZzBx7oz9usiAcWEGTDFTCdhtaM=",
+        "lastModified": 1724678951,
+        "narHash": "sha256-bGIM1eSYsaht21LuLFO2FbJtc/lo2dZeEIhgd/pr8IY=",
         "ref": "refs/heads/main",
-        "rev": "8856263c0c3f4bd1ea9c73edbab8d1bdc2197b8e",
-        "revCount": 1755,
+        "rev": "24b44616b0729522fe2ab2527309d4fa61ee97cc",
+        "revCount": 1781,
         "type": "git",
         "url": "ssh://git@github.com/giantswarm/opsctl.git"
       },
       "original": {
-        "rev": "8856263c0c3f4bd1ea9c73edbab8d1bdc2197b8e",
+        "rev": "24b44616b0729522fe2ab2527309d4fa61ee97cc",
         "type": "git",
         "url": "ssh://git@github.com/giantswarm/opsctl.git"
       }
