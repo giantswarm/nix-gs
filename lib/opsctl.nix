@@ -1,4 +1,4 @@
-{ pkgs, src, buildGoModule, musl }:
+{ src, buildGoModule }:
 buildGoModule {
   inherit src;
 
@@ -7,7 +7,7 @@ buildGoModule {
 
   vendorHash = "sha256-JjrE2zsC8bvtdwCbPwE342c/f/errZHtQ02P2nE4CHw=";
 
-  CGO_ENABLED = 0;
+  env.CGO_ENABLED = 0;
 
   ldflags = [
     "-w"

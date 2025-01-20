@@ -1,4 +1,4 @@
-{ pkgs, src, buildGoModule, musl }:
+{ src, buildGoModule }:
 buildGoModule {
   inherit src;
 
@@ -7,7 +7,7 @@ buildGoModule {
 
   vendorHash = "sha256-LRT/SUYTpPLzaTmBb1rEVW9DlPANTgGsIWPKzWkhX4A=";
 
-  CGO_ENABLED = 0;
+  env.CGO_ENABLED = 0;
 
   doCheck = false;
 
