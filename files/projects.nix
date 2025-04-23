@@ -1,6 +1,15 @@
 let
   workDir = "work/giantswarm";
   gitlabRepo = "git.tools.kbee.xyz";
+
+  gsProject = name: {
+    name = "gs-${name}";
+    path = "${workDir}/gs-${name}";
+    repos = [{
+      name = "origin";
+      url = "git@github.com:giantswarm/${name}.git";
+    }];
+  };
 in [
   (rec {
     name = "nix-gs";
@@ -16,4 +25,5 @@ in [
       }
     ];
   })
+  (gsProject "roadmap")
 ]
