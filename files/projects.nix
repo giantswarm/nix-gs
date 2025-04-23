@@ -26,4 +26,5 @@ in [
     ];
   })
   (gsProject "roadmap")
+  (gsProject "giantswarm")
 ]
