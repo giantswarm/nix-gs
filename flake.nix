@@ -36,5 +36,6 @@
         };
       })) // {
         inherit overlay;
+        homeManagerModules.projects = import ./nixos/projects.nix;
       };
 }
