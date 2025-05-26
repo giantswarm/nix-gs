@@ -1,5 +1,22 @@
 {
   "nodes": {
+    "envctl": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1747911592,
+        "narHash": "sha256-sYAX9c1qMc0zxB6E1kGIsaRXiu0hFKjI+Ig2NNsZai8=",
+        "owner": "giantswarm",
+        "repo": "envctl",
+        "rev": "557d3a64fce3766e933071ae73546729b89f54ae",
+        "type": "github"
+      },
+      "original": {
+        "owner": "giantswarm",
+        "ref": "v0.0.9",
+        "repo": "envctl",
+        "type": "github"
+      }
+    },
     "flake-utils": {
       "inputs": {
         "systems": "systems"
@@ -70,6 +87,7 @@
     },
     "root": {
       "inputs": {
+        "envctl": "envctl",
         "flake-utils": "flake-utils",
         "kubectl-gs": "kubectl-gs",
         "nixpkgs": "nixpkgs",

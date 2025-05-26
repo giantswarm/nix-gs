@@ -17,6 +17,11 @@
       url = "github:giantswarm/kubectl-gs?ref=v4.7.0";
       flake = false;
     };
+
+    envctl = {
+      url = "github:giantswarm/envctl?ref=v0.0.9";
+      flake = false;
+    };
   };
 
   outputs = inputs @ { nixpkgs, flake-utils, ... }:
@@ -31,8 +36,7 @@
         };
       in {
         packages = {
-          inherit (pkgs) opsctl kubectl-gs;
-          default = pkgs.opsctl;
+          inherit (pkgs) opsctl kubectl-gs envctl;
         };
       })) // {
         inherit overlay;
