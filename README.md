@@ -62,3 +62,11 @@ Run the binary:
     });
 }
 ```
+
+## Run GS scripts
+
+### Versions report
+
+```
+./bin/gs-versions-report.nu
+```

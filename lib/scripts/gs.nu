@@ -38,68 +38,138 @@ module opsctl {
     ]: nothing -> list<record> {
     gs mcs --provider 'capz' --pipeline $pipeline --customer $customer
   }
-}
 
-use opsctl *
-use std log
-
-
-def clusters-with-initiator-app [mc: string] {
-  let appsFile = $"($mc)_apps.json"
-
-  if not ($appsFile | path exists) {
-    do -c { opsctl login $mc }
-    kubectl get apps -A --output json out> $appsFile
+  export def "gs mcs capv" [
+      --pipeline (-p): string = ''
+      --customer (-c): string = ''
+    ]: nothing -> list<record> {
+    gs mcs --provider 'vsphere' --pipeline $pipeline --customer $customer
   }
 
-  (open $appsFile
-    | get items
-    | where {|it| $it.spec.name == "k8s-initiator-app"}
-    | each {|it| $it.metadata.namespace}
-    | sort)
+  export def "gs mcs capvcd" [
+      --pipeline (-p): string = ''
+      --customer (-c): string = ''
+    ]: nothing -> list<record> {
+    gs mcs --provider 'cloud-director' --pipeline $pipeline --customer $customer
+  }
 }
 
-def initiator-app-config [mc: string, wc: string] {
-  let appsFile = $"($mc)_($wc)_apps.json"
-  let configMapsFile = $"($mc)_($wc)_configmaps.json"
-  let resultsFile = $"($mc)_($wc)_initiator_config.json"
+module clusters {
+  use opsctl *
 
-  log info $"downloading initiator app config for ($mc)/($wc) to ($resultsFile)..."
+  def clusters [mc: string] {
+    let cacheDir = [$env.HOME ".cache" "gs-clusters"] | path join
+    if not ($cacheDir | path exists) {
+      mkdir $cacheDir
+    }
 
-  if not (($appsFile | path exists) and ($configMapsFile | path exists)) {
-    do -c { opsctl login $mc }
-    kubectl --namespace $wc get apps --output json out> $appsFile
-    kubectl --namespace $wc get configmaps --output json out> $configMapsFile
+    let clustersFile = [$cacheDir $"($mc)_clusters.json"] | path join
+
+    if not ($clustersFile | path exists) {
+      do -c { tsh kube login $mc }
+      kubectl get clusters.cluster.x-k8s.io -A --output json out> $clustersFile
+    }
+
+    (open $clustersFile
+      | get items
+      | each {|it|
+          {
+            name: $it.metadata.name,
+            kind: $it.kind,
+            app: $it.metadata.labels."app"?,
+            version: (extract-version $it),
+          }
+        }
+      | filter {|it| $it.app in ["cluster-aws", "cluster-azure", "cluster-vsphere", "cluster-cloud-director"] }
+      | insert mc $mc
+      | sort)
   }
 
-  let apps = (open $appsFile
-    | get items
-    | where {|it| $it.spec.name == "k8s-initiator-app"})
+  def extract-version [cr: record]: nothing -> string {
+    let version = $cr.metadata.labels."release.giantswarm.io/version"?
+    if $version == null {
+      "unknown"
+    } else {
+      $version
+    }
+  }
 
-  let configMaps1 = $apps | each {|it| $it.spec.config.configMap?} | select name namespace;
-  let configMaps2 = $apps | each {|it| $it.spec.extraConfigs?} | flatten | select name namespace;
+  def clusters-per-version [mc: string] {
+    (clusters $mc
+      | group-by version
+      | transpose
+      | rename version data
+      | each {|it| $it | insert count ($it.data | length) }
+      | select version count
+      | sort-by version
+    )
+  }
 
-  let configMaps = ($configMaps1 | append $configMaps2) | sort-by name | uniq
+  def clusters-by-version [] {
+    ($in
+      | group-by version
+      | transpose
+      | rename version data
+      | each {|it| $it | insert count ($it.data | length) | insert mcs ($it.data | get mc | sort | uniq | str join ", ") }
+      | select version count mcs
+      | sort-by version
+    )
+  }
 
+  def clusters-version-report [pipeline: string] {
+    let cls = (gs mcs capa --pipeline $pipeline
+      | each {|it| $it.codename}
+      | each {|it| {mc: $it, data: (clusters-per-version $it)}}
+      | each {|p| $p.data | each {|it| $it | insert mc $p.mc}}
+      | flatten
+      | sort-by version
+    )
 
-  let configs = open $configMapsFile | get items
-  ($configMaps
-    | each {|it| get-config $configs $it}
-    | each {|it| {name: $it.metadata.name, data: $it.data?}}
-    | to json
-    | save -f $resultsFile)
-}
+    print $cls
 
-def get-config [
-    configs: list<record>,
-    config: record<name: string, namespace: string>
-  ]: nothing -> list<record> {
-  $configs | where {|it| $it.metadata.name == $config.name and $it.metadata.namespace == $config.namespace}
-}
+    ($cls
+      | group-by version
+      | transpose
+      | rename version data
+      | each {|it| ($it | insert count ($it.data.count | math sum))}
+      | select version count
+      | sort-by version
+    )
+  }
 
-def save-initiator-configs [mc: string] {
-  log info $"downloading initiator app config for ($mc)..."
-  (clusters-with-initiator-app $mc
-    | each {|wc| initiator-app-config $mc $wc})
-  null
+  def get-provider [app: string]: nothing -> string {
+    match $app {
+      "cluster-aws" => "capa",
+      "cluster-azure" => "capz",
+      "cluster-vsphere" => "capv",
+      "cluster-cloud-director" => "capvcd",
+      _ => "unknown",
+    }
+  }
+
+  def is-v29 [version: string]: nothing -> bool {
+    ($version | str starts-with "29.") or ($version | str starts-with "30.") or ($version | str starts-with "31.")
+  }
+
+  def is-v30 [version: string]: nothing -> bool {
+    ($version | str starts-with "30.") or ($version | str starts-with "31.")
+  }
+
+  def is-v31 [version: string]: nothing -> bool {
+    ($version | str starts-with "31.")
+  }
+
+  export def all-clusters []: nothing -> list<record> {
+    let mcs = (gs mcs capa) ++ (gs mcs capz) ++ (gs mcs capv) ++ (gs mcs capvcd)
+    ($mcs
+      | filter {|it| $it.pipeline in ["stable" "stable-testing" "testing"]}
+      | get codename
+      | each {|it| clusters $it}
+      | flatten
+      | each {|it| $it | insert provider (get-provider $it.app)}
+      | each {|it| $it | insert v29 (is-v29 $it.version)}
+      | each {|it| $it | insert v30 (is-v30 $it.version)}
+      | each {|it| $it | insert v31 (is-v31 $it.version)}
+      | sort-by version)
+  }
 }
