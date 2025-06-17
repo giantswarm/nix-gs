@@ -63,10 +63,23 @@ Run the binary:
 }
 ```
 
+
 ## Run GS scripts
 
 ### Versions report
 
 ```
 ./bin/gs-versions-report.nu
+```
+
+### Count clusters per version for all MCs
+
+```
+./bin/gs-cluster-count-per-version.nu
+```
+
+### Count clusters per version for a single MC
+
+```
+./bin/gs-cluster-count-per-version.nu --mc gazelle
 ```

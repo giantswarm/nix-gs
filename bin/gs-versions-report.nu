@@ -2,7 +2,7 @@
 
 source ../lib/scripts/gs.nu
 
-use clusters all-clusters
+use gs all-clusters
 
 def main [] {
   let items = all-clusters

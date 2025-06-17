@@ -54,10 +54,10 @@ module opsctl {
   }
 }
 
-module clusters {
+module gs {
   use opsctl *
 
-  def clusters [mc: string] {
+  export def clusters [mc: string] {
     let cacheDir = [$env.HOME ".cache" "gs-clusters"] | path join
     if not ($cacheDir | path exists) {
       mkdir $cacheDir
@@ -82,6 +82,10 @@ module clusters {
         }
       | filter {|it| $it.app in ["cluster-aws", "cluster-azure", "cluster-vsphere", "cluster-cloud-director"] }
       | insert mc $mc
+      | each {|it| $it | insert provider (get-provider $it.app)}
+      | each {|it| $it | insert v29 (is-v29 $it.version)}
+      | each {|it| $it | insert v30 (is-v30 $it.version)}
+      | each {|it| $it | insert v31 (is-v31 $it.version)}
       | sort)
   }
 
@@ -92,49 +96,6 @@ module clusters {
     } else {
       $version
     }
-  }
-
-  def clusters-per-version [mc: string] {
-    (clusters $mc
-      | group-by version
-      | transpose
-      | rename version data
-      | each {|it| $it | insert count ($it.data | length) }
-      | select version count
-      | sort-by version
-    )
-  }
-
-  def clusters-by-version [] {
-    ($in
-      | group-by version
-      | transpose
-      | rename version data
-      | each {|it| $it | insert count ($it.data | length) | insert mcs ($it.data | get mc | sort | uniq | str join ", ") }
-      | select version count mcs
-      | sort-by version
-    )
-  }
-
-  def clusters-version-report [pipeline: string] {
-    let cls = (gs mcs capa --pipeline $pipeline
-      | each {|it| $it.codename}
-      | each {|it| {mc: $it, data: (clusters-per-version $it)}}
-      | each {|p| $p.data | each {|it| $it | insert mc $p.mc}}
-      | flatten
-      | sort-by version
-    )
-
-    print $cls
-
-    ($cls
-      | group-by version
-      | transpose
-      | rename version data
-      | each {|it| ($it | insert count ($it.data.count | math sum))}
-      | select version count
-      | sort-by version
-    )
   }
 
   def get-provider [app: string]: nothing -> string {
@@ -166,10 +127,6 @@ module clusters {
       | get codename
       | each {|it| clusters $it}
       | flatten
-      | each {|it| $it | insert provider (get-provider $it.app)}
-      | each {|it| $it | insert v29 (is-v29 $it.version)}
-      | each {|it| $it | insert v30 (is-v30 $it.version)}
-      | each {|it| $it | insert v31 (is-v31 $it.version)}
       | sort-by version)
   }
 }
