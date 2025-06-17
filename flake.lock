@@ -3,16 +3,16 @@
     "envctl": {
       "flake": false,
       "locked": {
-        "lastModified": 1747911592,
-        "narHash": "sha256-sYAX9c1qMc0zxB6E1kGIsaRXiu0hFKjI+Ig2NNsZai8=",
+        "lastModified": 1749555382,
+        "narHash": "sha256-F9ociXnR6JYcuEXU3HPNHlT1zLT5qQgssoKCI6rZA98=",
         "owner": "giantswarm",
         "repo": "envctl",
-        "rev": "557d3a64fce3766e933071ae73546729b89f54ae",
+        "rev": "8a23f2ca0d913fc7cc1410ca4c1fc438111d232e",
         "type": "github"
       },
       "original": {
         "owner": "giantswarm",
-        "ref": "v0.0.9",
+        "ref": "v0.0.11",
         "repo": "envctl",
         "type": "github"
       }

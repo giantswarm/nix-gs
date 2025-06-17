@@ -3,7 +3,7 @@ buildGoModule {
   inherit src;
 
   pname = "envctl";
-  version = "0.0.9";
+  version = "0.0.11";
 
   vendorHash = "sha256-D9/UE5iHLQtykVJi5HL7ioYM6fZUDCwk5oA+WsAPzKM=";
 

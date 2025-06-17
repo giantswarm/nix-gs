@@ -19,7 +19,7 @@
     };
 
     envctl = {
-      url = "github:giantswarm/envctl?ref=v0.0.9";
+      url = "github:giantswarm/envctl?ref=v0.0.11";
       flake = false;
     };
   };
