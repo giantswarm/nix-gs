@@ -2,5 +2,5 @@
 final: prev: {
   opsctl = final.callPackage ./opsctl.nix { src = inputs.opsctl; };
   kubectl-gs = final.callPackage ./kubectl-gs.nix { src = inputs.kubectl-gs; };
-  envctl = final.callPackage ./envctl.nix { src = inputs.envctl; };
+  envctl = final.callPackage ./envctl.nix { };
 }

@@ -17,29 +17,29 @@
       url = "github:giantswarm/kubectl-gs?ref=v4.8.0";
       flake = false;
     };
-
-    envctl = {
-      url = "github:giantswarm/envctl?ref=v0.0.11";
-      flake = false;
-    };
   };
 
-  outputs = inputs @ { nixpkgs, flake-utils, ... }:
+  outputs =
+    inputs@{ nixpkgs, flake-utils, ... }:
     let
       overlay = import ./lib/overlay.nix { inherit inputs; };
     in
-    (flake-utils.lib.eachDefaultSystem (system:
+    (flake-utils.lib.eachDefaultSystem (
+      system:
       let
         pkgs = import nixpkgs {
           inherit system;
-          overlays = [overlay];
+          overlays = [ overlay ];
         };
-      in {
+      in
+      {
         packages = {
           inherit (pkgs) opsctl kubectl-gs envctl;
         };
-      })) // {
-        inherit overlay;
-        homeManagerModules.projects = import ./nixos/projects.nix;
-      };
+      }
+    ))
+    // {
+      inherit overlay;
+      homeManagerModules.projects = import ./nixos/projects.nix;
+    };
 }
