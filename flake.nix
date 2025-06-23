@@ -5,13 +5,6 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     flake-utils.url = "github:numtide/flake-utils";
-
-    opsctl = {
-      # TODO: use tag instead commit hash
-      # There seems to be a bug with private repositories because the tag reference doesn't work
-      url = "git+ssh://git@github.com/giantswarm/opsctl.git?rev=454a90f7ca4cebb75bc61bada35773b92c1e6a64";
-      flake = false;
-    };
   };
 
   outputs =

@@ -1,9 +1,13 @@
-{ src, buildGoModule }:
-buildGoModule {
-  inherit src;
-
+{ buildGoModule }:
+buildGoModule rec {
   pname = "opsctl";
   version = "7.2.2";
+
+  src = builtins.fetchGit {
+    url = "git@github.com:giantswarm/${pname}.git";
+    ref = "v${version}";
+    rev = "454a90f7ca4cebb75bc61bada35773b92c1e6a64";
+  };
 
   vendorHash = "sha256-fd5IXEjG+ypDvu0eLG8LHPvujfqZ48o++gImyAcbjIY=";
 
