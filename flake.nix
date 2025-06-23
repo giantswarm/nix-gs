@@ -12,11 +12,6 @@
       url = "git+ssh://git@github.com/giantswarm/opsctl.git?rev=454a90f7ca4cebb75bc61bada35773b92c1e6a64";
       flake = false;
     };
-
-    kubectl-gs = {
-      url = "github:giantswarm/kubectl-gs?ref=v4.8.0";
-      flake = false;
-    };
   };
 
   outputs =

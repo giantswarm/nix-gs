@@ -5,7 +5,7 @@ buildGoModule rec {
 
   src = pkgs.fetchFromGitHub {
     owner = "giantswarm";
-    repo = "envctl";
+    repo = pname;
     rev = "v${version}";
     hash = "sha256-AqB7+J9l5rZ1gvE0HoGo837BNAQ/PSA7iCT24n5O6L4=";
   };

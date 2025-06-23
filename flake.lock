@@ -18,23 +18,6 @@
         "type": "github"
       }
     },
-    "kubectl-gs": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1746091145,
-        "narHash": "sha256-DWAIYX0r8U/wR8broKlSCn9Pl8/o1moWDpkVKjktXRQ=",
-        "owner": "giantswarm",
-        "repo": "kubectl-gs",
-        "rev": "3c3b9f2eee2254b6bdd25e53c33f7a46daa8eef5",
-        "type": "github"
-      },
-      "original": {
-        "owner": "giantswarm",
-        "ref": "v4.8.0",
-        "repo": "kubectl-gs",
-        "type": "github"
-      }
-    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1749794982,
@@ -71,7 +54,6 @@
     "root": {
       "inputs": {
         "flake-utils": "flake-utils",
-        "kubectl-gs": "kubectl-gs",
         "nixpkgs": "nixpkgs",
         "opsctl": "opsctl"
       }
