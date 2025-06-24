@@ -4,7 +4,7 @@ let
 
   gsProject = name: {
     name = "gs-${name}";
-    path = "${workDir}/gs-${name}";
+    path = "${workDir}/${name}";
     repos = [{
       name = "origin";
       url = "git@github.com:giantswarm/${name}.git";
