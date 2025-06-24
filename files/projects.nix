@@ -25,6 +25,11 @@ in [
       }
     ];
   })
-  (gsProject "roadmap")
-  (gsProject "giantswarm")
-]
+] ++ (builtins.map gsProject [
+  "roadmap"
+  "giantswarm"
+  "cluster-aws"
+  "cluster-api-provider-aws"
+  "cluster-azure"
+  "cluster-api-provider-azure"
+])
