@@ -22,7 +22,7 @@
       in
       {
         packages = {
-          inherit (pkgs) opsctl kubectl-gs muster;
+          inherit (pkgs) opsctl kubectl-gs muster envctl;
         };
       }
     ))

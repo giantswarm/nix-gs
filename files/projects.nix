@@ -30,6 +30,7 @@ in [
   "giantswarm"
   "debug"
   "muster"
+  "envctl"
   "cluster-aws"
   "cluster-api-provider-aws"
   "cluster-azure"
