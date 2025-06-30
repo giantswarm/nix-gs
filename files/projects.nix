@@ -34,4 +34,5 @@ in [
   "cluster-api-provider-aws"
   "cluster-azure"
   "cluster-api-provider-azure"
+  "cluster-apps-operator"
 ])
