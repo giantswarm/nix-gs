@@ -1,16 +1,18 @@
 { pkgs, buildGoModule }:
 buildGoModule rec {
-  pname = "envctl";
-  version = "0.0.12";
+  pname = "muster";
+  version = "0.0.7";
 
   src = pkgs.fetchFromGitHub {
     owner = "giantswarm";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-AqB7+J9l5rZ1gvE0HoGo837BNAQ/PSA7iCT24n5O6L4=";
+    hash = "sha256-YKaulQbYkzpyT1DIUFOVXdpX9zQLwhlWxjd+HgGrVsQ=";
   };
 
-  vendorHash = "sha256-D9/UE5iHLQtykVJi5HL7ioYM6fZUDCwk5oA+WsAPzKM=";
+  vendorHash = "sha256-35o7Wwp/L7OggAf8JWhL/kRAXAJuyPnSfFJolkpaDCo=";
+
+  doCheck = false;
 
   env.CGO_ENABLED = 0;
 
