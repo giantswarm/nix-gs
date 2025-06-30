@@ -28,6 +28,7 @@ in [
 ] ++ (builtins.map gsProject [
   "roadmap"
   "giantswarm"
+  "debug"
   "cluster-aws"
   "cluster-api-provider-aws"
   "cluster-azure"
