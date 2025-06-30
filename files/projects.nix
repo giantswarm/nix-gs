@@ -29,6 +29,7 @@ in [
   "roadmap"
   "giantswarm"
   "debug"
+  "muster"
   "cluster-aws"
   "cluster-api-provider-aws"
   "cluster-azure"
