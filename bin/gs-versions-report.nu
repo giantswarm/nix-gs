@@ -26,7 +26,7 @@ def main [] {
 }
 
 def provider-info [all: list<record>, provider: string]: nothing -> record {
-  let items = ($all | filter {|it| $it.provider == $provider})
+  let items = ($all | where {|it| $it.provider == $provider})
   let total = $items | length
 
   {
@@ -40,7 +40,7 @@ def provider-info [all: list<record>, provider: string]: nothing -> record {
 
 def provider-stats [items: list<record>, f: closure]: nothing -> record {
   let total = $items | length
-  let count = $items | filter $f | length
+  let count = $items | where $f | length
   let percentage = ($count / $total * 100)
   {
     count: $count,
@@ -51,7 +51,7 @@ def provider-stats [items: list<record>, f: closure]: nothing -> record {
 
 def print-versions-report [versionStr: string, data: record, f: closure] {
   let total = $data.items | length
-  let count = $data.items | filter $f | length
+  let count = $data.items | where $f | length
 
   let capa = do $f $data.capa
   let capz = do $f $data.capz

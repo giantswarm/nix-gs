@@ -80,7 +80,7 @@ module gs {
             version: (extract-version $it),
           }
         }
-      | filter {|it| $it.app in ["cluster-aws", "cluster-azure", "cluster-vsphere", "cluster-cloud-director"] }
+      | where {|it| $it.app in ["cluster-aws", "cluster-azure", "cluster-vsphere", "cluster-cloud-director"] }
       | insert mc $mc
       | each {|it| $it | insert provider (get-provider $it.app)}
       | each {|it| $it | insert v29 (is-v29 $it.version)}
@@ -123,7 +123,7 @@ module gs {
   export def all-clusters []: nothing -> list<record> {
     let mcs = (gs mcs capa) ++ (gs mcs capz) ++ (gs mcs capv) ++ (gs mcs capvcd)
     ($mcs
-      | filter {|it| $it.pipeline in ["stable" "stable-testing" "testing"]}
+      | where {|it| $it.pipeline in ["stable" "stable-testing" "testing"]}
       | get codename
       | each {|it| clusters $it}
       | flatten
