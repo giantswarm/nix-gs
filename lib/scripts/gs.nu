@@ -57,7 +57,7 @@ module opsctl {
 module gs {
   use opsctl *
 
-  export def clusters [mc: string] {
+  export def clusters [mc: string, customer: string] {
     let cacheDir = [$env.HOME ".cache" "gs-clusters"] | path join
     if not ($cacheDir | path exists) {
       mkdir $cacheDir
@@ -82,6 +82,7 @@ module gs {
         }
       | where {|it| $it.app in ["cluster-aws", "cluster-azure", "cluster-vsphere", "cluster-cloud-director"] }
       | insert mc $mc
+      | insert customer $customer
       | each {|it| $it | insert provider (get-provider $it.app)}
       | each {|it| $it | insert v29 (is-v29 $it.version)}
       | each {|it| $it | insert v30 (is-v30 $it.version)}
@@ -124,8 +125,8 @@ module gs {
     let mcs = (gs mcs capa) ++ (gs mcs capz) ++ (gs mcs capv) ++ (gs mcs capvcd)
     ($mcs
       | where {|it| $it.pipeline in ["stable" "stable-testing" "testing"]}
-      | get codename
-      | each {|it| clusters $it}
+      | select codename customer
+      | each {|it| clusters $it.codename $it.customer}
       | flatten
       | sort-by version)
   }
