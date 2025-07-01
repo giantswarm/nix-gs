@@ -31,6 +31,7 @@ in [
   "debug"
   "muster"
   "envctl"
+  "mc-bootstrap"
   "cluster-aws"
   "cluster-api-provider-aws"
   "cluster-azure"
