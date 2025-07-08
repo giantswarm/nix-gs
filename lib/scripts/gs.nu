@@ -122,12 +122,15 @@ module gs {
   }
 
   export def all-clusters []: nothing -> list<record> {
-    let mcs = (gs mcs capa) ++ (gs mcs capz) ++ (gs mcs capv) ++ (gs mcs capvcd)
-    ($mcs
+    (all-mcs
       | where {|it| $it.pipeline in ["stable" "stable-testing" "testing"]}
       | select codename customer
       | each {|it| clusters $it.codename $it.customer}
       | flatten
       | sort-by version)
+  }
+
+  export def all-mcs []: nothing -> list<record> {
+    (gs mcs capa) ++ (gs mcs capz) ++ (gs mcs capv) ++ (gs mcs capvcd)
   }
 }

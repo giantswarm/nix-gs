@@ -12,7 +12,8 @@ def main [
   let items = if ($mc | is-empty) {
     all-clusters
   } else {
-    clusters $mc
+    let customer = (all-mcs | where codename == "alba" | get 0 | get customer)
+    clusters $mc $customer
   }
 
   ($items
