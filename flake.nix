@@ -28,6 +28,9 @@
     ))
     // {
       inherit overlay;
-      homeManagerModules.projects = import ./nixos/projects.nix;
+      homeManagerModules = {
+        projects = import ./nixos/projects.nix;
+        golang = import ./nixos/golang.nix;
+      };
     };
 }
