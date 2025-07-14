@@ -34,6 +34,7 @@ in [
   "opsctl"
   "architect"
   "mc-bootstrap"
+  "cluster"
   "cluster-aws"
   "cluster-api-provider-aws"
   "cluster-azure"
