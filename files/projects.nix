@@ -32,6 +32,7 @@ in [
   "muster"
   "envctl"
   "opsctl"
+  "architect"
   "mc-bootstrap"
   "cluster-aws"
   "cluster-api-provider-aws"
