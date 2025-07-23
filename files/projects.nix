@@ -40,4 +40,5 @@ in [
   "cluster-azure"
   "cluster-api-provider-azure"
   "haive-sprint-incident-analysis"
+  "oka"
 ])
