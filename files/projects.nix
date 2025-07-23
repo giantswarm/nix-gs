@@ -39,4 +39,5 @@ in [
   "cluster-api-provider-aws"
   "cluster-azure"
   "cluster-api-provider-azure"
+  "haive-sprint-incident-analysis"
 ])
