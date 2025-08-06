@@ -28,6 +28,7 @@ in [
 ] ++ (builtins.map gsProject [
   "roadmap"
   "giantswarm"
+  "docs"
   "debug"
   "muster"
   "envctl"
