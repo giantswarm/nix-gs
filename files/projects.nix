@@ -35,6 +35,7 @@ in [
   "envctl"
   "opsctl"
   "architect"
+  "releases"
   "mc-bootstrap"
   "cluster"
   "cluster-aws"
