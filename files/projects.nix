@@ -29,6 +29,7 @@ in [
   "roadmap"
   "giantswarm"
   "docs"
+  "handbook"
   "debug"
   "muster"
   "envctl"
