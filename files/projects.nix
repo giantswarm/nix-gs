@@ -44,4 +44,11 @@ in [
   "cluster-api-provider-azure"
   "haive-sprint-incident-analysis"
   "oka"
+  "operatorkit"
+  "backoff"
+  "exporterkit"
+  "k8sclient"
+  "microerror"
+  "micrologger"
+  "cluster-apps-operator"
 ])
