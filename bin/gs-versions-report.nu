@@ -41,7 +41,12 @@ def provider-info [all: list<record>, provider: string]: nothing -> record {
 def provider-stats [items: list<record>, f: closure]: nothing -> record {
   let total = $items | length
   let count = $items | where $f | length
-  let percentage = ($count / $total * 100)
+  let percentage = if $total != 0 {
+    ($count / $total * 100)
+  } else {
+    0
+  }
+
   {
     count: $count,
     percentage: $percentage,
