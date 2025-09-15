@@ -23,6 +23,7 @@ def main [] {
   print-versions-report "v29" $data {|it| $it.v29}
   print-versions-report "v30" $data {|it| $it.v30}
   print-versions-report "v31" $data {|it| $it.v31}
+  print-versions-report "v32" $data {|it| $it.v32}
 }
 
 def provider-info [all: list<record>, provider: string]: nothing -> record {
@@ -35,6 +36,7 @@ def provider-info [all: list<record>, provider: string]: nothing -> record {
     v29: (provider-stats $items {|it| $it.v29}),
     v30: (provider-stats $items {|it| $it.v30}),
     v31: (provider-stats $items {|it| $it.v31}),
+    v32: (provider-stats $items {|it| $it.v32}),
   }
 }
 

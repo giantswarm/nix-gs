@@ -87,6 +87,7 @@ module gs {
       | each {|it| $it | insert v29 (is-v29 $it.version)}
       | each {|it| $it | insert v30 (is-v30 $it.version)}
       | each {|it| $it | insert v31 (is-v31 $it.version)}
+      | each {|it| $it | insert v32 (is-v32 $it.version)}
       | sort)
   }
 
@@ -110,15 +111,19 @@ module gs {
   }
 
   def is-v29 [version: string]: nothing -> bool {
-    ($version | str starts-with "29.") or ($version | str starts-with "30.") or ($version | str starts-with "31.")
+    ($version | str starts-with "29.") or ($version | str starts-with "30.") or ($version | str starts-with "31.") or ($version | str starts-with "32.")
   }
 
   def is-v30 [version: string]: nothing -> bool {
-    ($version | str starts-with "30.") or ($version | str starts-with "31.")
+    ($version | str starts-with "30.") or ($version | str starts-with "31.") or ($version | str starts-with "32.")
   }
 
   def is-v31 [version: string]: nothing -> bool {
-    ($version | str starts-with "31.")
+    ($version | str starts-with "31.") or ($version | str starts-with "32.")
+  }
+
+  def is-v32 [version: string]: nothing -> bool {
+    ($version | str starts-with "32.")
   }
 
   export def all-clusters []: nothing -> list<record> {
