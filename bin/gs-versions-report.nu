@@ -20,10 +20,10 @@ def main [] {
     capvcd: $capvcd,
   }
 
-  print-versions-report "v29" $data {|it| $it.v29}
-  print-versions-report "v30" $data {|it| $it.v30}
-  print-versions-report "v31" $data {|it| $it.v31}
-  print-versions-report "v32" $data {|it| $it.v32}
+  let versions = [29 30 31 32]
+  for version in $versions {
+    print-versions-report $version $data
+  }
 }
 
 def provider-info [all: list<record>, provider: string]: nothing -> record {
@@ -33,21 +33,13 @@ def provider-info [all: list<record>, provider: string]: nothing -> record {
   {
     items: $items,
     total: $total,
-    v29: (provider-stats $items {|it| $it.v29}),
-    v30: (provider-stats $items {|it| $it.v30}),
-    v31: (provider-stats $items {|it| $it.v31}),
-    v32: (provider-stats $items {|it| $it.v32}),
   }
 }
 
-def provider-stats [items: list<record>, f: closure]: nothing -> record {
+def provider-stats [items: list<record>, min_version: int]: nothing -> record {
   let total = $items | length
-  let count = $items | where $f | length
-  let percentage = if $total != 0 {
-    ($count / $total * 100)
-  } else {
-    0
-  }
+  let count = $items | where {|it| $it.major_version >= $min_version} | length
+  let percentage = if $total != 0 { ($count / $total * 100) } else { 0 }
 
   {
     count: $count,
@@ -56,14 +48,15 @@ def provider-stats [items: list<record>, f: closure]: nothing -> record {
   }
 }
 
-def print-versions-report [versionStr: string, data: record, f: closure] {
+def print-versions-report [version: int, data: record] {
+  let versionStr = $"v($version)"
   let total = $data.items | length
-  let count = $data.items | where $f | length
+  let count = $data.items | where major_version >= $version | length
 
-  let capa = do $f $data.capa
-  let capz = do $f $data.capz
-  let capv = do $f $data.capv
-  let capvcd = do $f $data.capvcd
+  let capa = provider-stats $data.capa.items $version
+  let capz = provider-stats $data.capz.items $version
+  let capv = provider-stats $data.capv.items $version
+  let capvcd = provider-stats $data.capvcd.items $version
 
   let separator = "---------------------------------------------------------------------------------------------";
 
