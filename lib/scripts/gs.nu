@@ -111,20 +111,33 @@ module gs {
   }
 
   def is-v29 [version: string]: nothing -> bool {
-    ($version | str starts-with "29.") or ($version | str starts-with "30.") or ($version | str starts-with "31.") or ($version | str starts-with "32.")
+    is-version-or-newer $version "29"
   }
 
   def is-v30 [version: string]: nothing -> bool {
-    ($version | str starts-with "30.") or ($version | str starts-with "31.") or ($version | str starts-with "32.")
+    is-version-or-newer $version "30"
   }
 
   def is-v31 [version: string]: nothing -> bool {
-    ($version | str starts-with "31.") or ($version | str starts-with "32.")
+    is-version-or-newer $version "31"
   }
 
   def is-v32 [version: string]: nothing -> bool {
-    ($version | str starts-with "32.")
+    is-version-or-newer $version "32"
   }
+
+  def is-version-or-newer [version: string, min_version: string]: nothing -> bool {
+    let valid_versions = ["29" "30" "31" "32"]
+    let min_index = ($valid_versions | enumerate | where {|it| $it.item == $min_version} | get 0.index)
+    let current_index = ($valid_versions | enumerate | where {|it| $version | str starts-with $"($it.item)."} | get 0?.index)
+
+    if $current_index == null {
+      false
+    } else {
+      $current_index >= $min_index
+    }
+  }
+
 
   export def all-clusters []: nothing -> list<record> {
     (all-mcs
