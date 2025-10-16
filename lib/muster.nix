@@ -1,16 +1,16 @@
 { pkgs, buildGoModule }:
 buildGoModule rec {
   pname = "muster";
-  version = "0.0.51";
+  version = "0.0.65";
 
   src = pkgs.fetchFromGitHub {
     owner = "giantswarm";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-X5jLAnvk589/MSrZtztgcEPzlo99RZ+LuqvIT+LlMwU=";
+    hash = "sha256-ZKApWzRaSYb05lOM6NvanOPDSRlEZMXc3+4QWBdWlsA=";
   };
 
-  vendorHash = "sha256-dLXlk7xKzsVV+3zMM/o4J6NRqYY+Ulhq1EnGTwWOHcQ=";
+  vendorHash = "sha256-YSgdxcapR22oD2fEs+ZhFfOUbckUg4LYKDJKBw7iljQ=";
 
   doCheck = false;
 
