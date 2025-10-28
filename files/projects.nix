@@ -31,7 +31,6 @@ in [
   "docs"
   "handbook"
   "debug"
-  "muster"
   "envctl"
   "opsctl"
   "architect"
@@ -51,4 +50,13 @@ in [
   "microerror"
   "micrologger"
   "cluster-apps-operator"
+
+  "muster"
+  "mcp-capi"
+  "mcp-kubernetes"
+  "mcp-prometheus"
+  "mcp-opsgenie"
+  "mcp-debug"
+  "mcp-giantswarm-apps"
+  "mcp-teleport"
 ])
