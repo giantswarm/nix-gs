@@ -25,6 +25,16 @@ in [
       }
     ];
   })
+  (rec {
+    name = "mcp-go";
+    path = "${workDir}/${name}";
+    repos = [
+      {
+        name = "origin";
+        url = "git@github.com:mark3labs/${name}.git";
+      }
+    ];
+  })
 ] ++ (builtins.map gsProject [
   "roadmap"
   "giantswarm"
