@@ -20,7 +20,7 @@ def main [] {
     capvcd: $capvcd,
   }
 
-  let versions = [30 31 32 33]
+  let versions = [32 33 34]
   for version in $versions {
     print-versions-report $version $data
   }
