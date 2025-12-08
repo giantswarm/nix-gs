@@ -1,7 +1,7 @@
 { buildGoModule }:
 buildGoModule rec {
   pname = "opsctl";
-  version = "7.2.2";
+  version = "8.0.0";
 
   src = builtins.fetchGit {
     url = "git@github.com:giantswarm/${pname}.git";
