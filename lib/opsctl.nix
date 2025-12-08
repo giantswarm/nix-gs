@@ -6,10 +6,10 @@ buildGoModule rec {
   src = builtins.fetchGit {
     url = "git@github.com:giantswarm/${pname}.git";
     ref = "v${version}";
-    rev = "454a90f7ca4cebb75bc61bada35773b92c1e6a64";
+    rev = "b32c3174edfba80b8a3a91114c9dafc85287835f";
   };
 
-  vendorHash = "sha256-fd5IXEjG+ypDvu0eLG8LHPvujfqZ48o++gImyAcbjIY=";
+  vendorHash = "sha256-TxRvzBZ04uCtrFCuYaLQu4AqiqZO4WyHTGAOhK0uFjE=";
 
   env.CGO_ENABLED = 0;
 
