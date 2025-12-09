@@ -1,8 +1,8 @@
 { inputs }:
 final: prev: {
-  opsctl = final.callPackage ./opsctl.nix { };
-  envctl = final.callPackage ./envctl.nix { };
-  architect = final.callPackage ./architect.nix { };
-  kubectl-gs = final.callPackage ./kubectl-gs.nix { };
-  muster = final.callPackage ./muster.nix { };
+  opsctl = final.callPackage ./packages/opsctl.nix { };
+  envctl = final.callPackage ./packages/envctl.nix { };
+  architect = final.callPackage ./packages/architect.nix { };
+  kubectl-gs = final.callPackage ./packages/kubectl-gs.nix { };
+  muster = final.callPackage ./packages/muster.nix { };
 }

@@ -26,11 +26,11 @@ Run built binary:
 
 - `flake.nix` - Main entry point exposing packages and Home Manager modules
 - `lib/overlay.nix` - Nixpkgs overlay that adds all packages
-- `lib/*.nix` - Individual package definitions using `buildGoModule`
+- `lib/packages/*.nix` - Individual package definitions using `buildGoModule`
 
 ### Package Definitions
 
-All packages in `lib/` follow the same pattern:
+All packages in `lib/packages/` follow the same pattern:
 - Use `buildGoModule` for Go binaries
 - Fetch source from GitHub with `fetchFromGitHub` (or `builtins.fetchGit` for private repos like opsctl)
 - Set `CGO_ENABLED = 0` for static builds
