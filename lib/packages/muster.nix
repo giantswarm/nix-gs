@@ -1,16 +1,19 @@
 { pkgs, buildGoModule }:
+let
+  meta = builtins.fromJSON (builtins.readFile ./muster.json);
+in
 buildGoModule rec {
   pname = "muster";
-  version = "0.0.65";
+  version = meta.version;
 
   src = pkgs.fetchFromGitHub {
-    owner = "giantswarm";
-    repo = pname;
+    owner = meta.owner;
+    repo = meta.repo;
     rev = "v${version}";
-    hash = "sha256-ZKApWzRaSYb05lOM6NvanOPDSRlEZMXc3+4QWBdWlsA=";
+    hash = meta.hash;
   };
 
-  vendorHash = "sha256-YSgdxcapR22oD2fEs+ZhFfOUbckUg4LYKDJKBw7iljQ=";
+  vendorHash = meta.vendorHash;
 
   doCheck = false;
 

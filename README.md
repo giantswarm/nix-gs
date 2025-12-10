@@ -64,6 +64,43 @@ Run the binary:
 ```
 
 
+## Update packages
+
+### Using the update script
+
+Update all packages to their latest versions:
+```
+./bin/update-packages.nu
+```
+
+Update a specific package:
+```
+./bin/update-packages.nu kubectl-gs
+```
+
+Preview changes without applying them:
+```
+./bin/update-packages.nu --dry-run
+```
+
+List available packages:
+```
+./bin/update-packages.nu --list
+```
+
+### Manual update
+
+If the script fails, you can update packages manually:
+
+1. Edit `lib/packages/<package>.json`
+2. Update the `version` field
+3. Set `hash` and `vendorHash` to empty strings `""`
+4. Run `nix build .#<package>` - it will fail with the correct hash
+5. Copy the hash from the error output into the JSON file
+6. Run the build again - it will fail with the correct vendorHash
+7. Copy the vendorHash and run the build to verify
+
+
 ## Run GS scripts
 
 ### Versions report

@@ -1,16 +1,19 @@
 { pkgs, buildGoModule }:
+let
+  meta = builtins.fromJSON (builtins.readFile ./kubectl-gs.json);
+in
 buildGoModule rec {
   pname = "kubectl-gs";
-  version = "4.8.1";
+  version = meta.version;
 
   src = pkgs.fetchFromGitHub {
-    owner = "giantswarm";
-    repo = pname;
+    owner = meta.owner;
+    repo = meta.repo;
     rev = "v${version}";
-    hash = "sha256-YtlqmM6dSKI3QIW7cE0wwoDY1L5ciNqyHUwpoUFJgJQ=";
+    hash = meta.hash;
   };
 
-  vendorHash = "sha256-OY8Khe9nCLukpLluZXCuTPdynUc3bN9ig5Zm9qJ9tfk=";
+  vendorHash = meta.vendorHash;
 
   env.CGO_ENABLED = 0;
 

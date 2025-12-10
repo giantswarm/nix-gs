@@ -1,16 +1,19 @@
 { pkgs, buildGoModule }:
+let
+  meta = builtins.fromJSON (builtins.readFile ./envctl.json);
+in
 buildGoModule rec {
   pname = "envctl";
-  version = "0.0.13";
+  version = meta.version;
 
   src = pkgs.fetchFromGitHub {
-    owner = "giantswarm";
-    repo = pname;
+    owner = meta.owner;
+    repo = meta.repo;
     rev = "v${version}";
-    hash = "sha256-7gnv4AYjIXf4pdpUEKn8+0nGgACroVv0mw79kffBv8A=";
+    hash = meta.hash;
   };
 
-  vendorHash = "sha256-D9/UE5iHLQtykVJi5HL7ioYM6fZUDCwk5oA+WsAPzKM=";
+  vendorHash = meta.vendorHash;
 
   env.CGO_ENABLED = 0;
 

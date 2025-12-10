@@ -1,15 +1,18 @@
 { buildGoModule }:
+let
+  meta = builtins.fromJSON (builtins.readFile ./opsctl.json);
+in
 buildGoModule rec {
   pname = "opsctl";
-  version = "8.0.0";
+  version = meta.version;
 
   src = builtins.fetchGit {
-    url = "git@github.com:giantswarm/${pname}.git";
+    url = meta.url;
     ref = "v${version}";
-    rev = "b32c3174edfba80b8a3a91114c9dafc85287835f";
+    rev = meta.rev;
   };
 
-  vendorHash = "sha256-TxRvzBZ04uCtrFCuYaLQu4AqiqZO4WyHTGAOhK0uFjE=";
+  vendorHash = meta.vendorHash;
 
   env.CGO_ENABLED = 0;
 

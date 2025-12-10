@@ -1,16 +1,19 @@
 { pkgs, buildGoModule }:
+let
+  meta = builtins.fromJSON (builtins.readFile ./architect.json);
+in
 buildGoModule rec {
   pname = "architect";
-  version = "7.3.0";
+  version = meta.version;
 
   src = pkgs.fetchFromGitHub {
-    owner = "giantswarm";
-    repo = pname;
+    owner = meta.owner;
+    repo = meta.repo;
     rev = "v${version}";
-    hash = "sha256-vLZ6z9OwgWEVrG+S2ICzhUWeUjG9UV4dsgnHpn1WJ5s=";
+    hash = meta.hash;
   };
 
-  vendorHash = "sha256-rFtIouWKAGe1U9Yam3/gzZ9gfGlb63E+1TpXjg30bkw=";
+  vendorHash = meta.vendorHash;
 
   env.CGO_ENABLED = 0;
 
