@@ -17,6 +17,8 @@ buildGoModule rec {
 
   doCheck = false;
 
+  subPackages = [ "." ];
+
   env.CGO_ENABLED = 0;
 
   ldflags = [
