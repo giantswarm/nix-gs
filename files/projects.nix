@@ -62,6 +62,7 @@ in [
   "cluster-apps-operator"
 
   "muster"
+  "mcp-oauth"
   "mcp-capi"
   "mcp-kubernetes"
   "mcp-prometheus"
