@@ -5,4 +5,5 @@ final: prev: {
   architect = final.callPackage ./packages/architect.nix { };
   kubectl-gs = final.callPackage ./packages/kubectl-gs.nix { };
   muster = final.callPackage ./packages/muster.nix { };
+  devctl = final.callPackage ./packages/devctl.nix { };
 }
