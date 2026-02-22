@@ -1,5 +1,5 @@
 {
-  "url": "git@github.com:giantswarm/konfigure.git",
+  "url": "https://github.com/giantswarm/konfigure.git",
   "version": "2.1.1",
   "sourceType": "git",
   "rev": "6452652686881683fa1ec7e9b342933dde57d7da",
