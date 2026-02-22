@@ -1,5 +1,5 @@
 {
-  "url": "git@github.com:giantswarm/opsctl.git",
+  "url": "https://github.com/giantswarm/opsctl.git",
   "version": "9.0.0",
   "sourceType": "git",
   "rev": "2ad0f0d49e3ccaf0542456fd87a9f12c5a895298",
