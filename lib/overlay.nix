@@ -6,4 +6,5 @@ final: prev: {
   kubectl-gs = final.callPackage ./packages/kubectl-gs.nix { };
   muster = final.callPackage ./packages/muster.nix { };
   devctl = final.callPackage ./packages/devctl.nix { };
+  konfigure = final.callPackage ./packages/konfigure.nix { };
 }

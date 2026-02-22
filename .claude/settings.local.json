@@ -5,7 +5,9 @@
       "Bash(git log:*)",
       "Bash(git diff:*)",
       "Bash(git status:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(git ls-remote:*)",
+      "Bash(sort:*)"
     ],
     "deny": [],
     "ask": []
