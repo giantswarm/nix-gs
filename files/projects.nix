@@ -14,6 +14,7 @@ in [
   (rec {
     name = "nix-gs";
     path = "${workDir}/${name}";
+    ripple = true;
     repos = [
       {
         name = "origin";
@@ -22,6 +23,7 @@ in [
       {
         name = "github";
         url = "git@github.com:giantswarm/${name}.git";
+        ripple = true;
       }
     ];
   })
