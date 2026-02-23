@@ -70,4 +70,6 @@ in [
   "mcp-debug"
   "mcp-giantswarm-apps"
   "mcp-teleport"
+
+  "giantswarm-aws-account-prerequisites"
 ])
