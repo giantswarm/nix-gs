@@ -45,6 +45,7 @@ in [
   "debug"
   "envctl"
   "opsctl"
+  "devctl"
   "architect"
   "releases"
   "mc-bootstrap"
