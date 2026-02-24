@@ -73,5 +73,6 @@ in [
   "mcp-giantswarm-apps"
   "mcp-teleport"
 
+  "aws-account-setup"
   "giantswarm-aws-account-prerequisites"
 ])
