@@ -24,6 +24,9 @@
         packages = {
           inherit (pkgs) opsctl kubectl-gs muster envctl architect devctl konfigure mcli;
         };
+        checks = {
+          inherit (pkgs) opsctl kubectl-gs muster envctl architect devctl konfigure mcli;
+        };
       }
     ))
     // {
