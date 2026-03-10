@@ -1,4 +1,4 @@
-{ buildGoModule }:
+{ pkgs, buildGoModule }:
 let
   meta = builtins.fromJSON (builtins.readFile ./konfigure.json);
 in
@@ -6,10 +6,11 @@ buildGoModule rec {
   pname = "konfigure";
   version = meta.version;
 
-  src = builtins.fetchGit {
-    url = meta.url;
-    ref = "v${version}";
-    rev = meta.rev;
+  src = pkgs.fetchFromGitHub {
+    owner = meta.owner;
+    repo = meta.repo;
+    rev = "v${version}";
+    hash = meta.hash;
   };
 
   vendorHash = meta.vendorHash;
