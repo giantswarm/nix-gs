@@ -1,7 +1,7 @@
 {
   "url": "https://github.com/giantswarm/opsctl.git",
-  "version": "10.0.0",
+  "version": "11.0.0",
   "sourceType": "git",
-  "rev": "ddbd77f0e48aa3cf03c252013a55e8d1f639e6ea",
-  "vendorHash": "sha256-9K8P26b/IKVSJVh5j+28oXjoSqki+37eSubMVSwRxH4="
+  "rev": "403accabe10f6233a65f654dfadb8053a1d381ab",
+  "vendorHash": "sha256-PPn6S9nzvqcEgzqgIB3tJgCKpUsLEOWRPVac2VpVPYI="
 }
