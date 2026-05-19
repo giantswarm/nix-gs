@@ -58,7 +58,7 @@ module gs {
   use opsctl *
 
   export def clusters [mc: string, customer: string] {
-    let cacheDir = [$env.HOME ".cache" "gs-clusters"] | path join
+    let cacheDir = [$env.HOME ".cache" "gs-clusters" (date now | format date "%Y-%m-%d")] | path join
     if not ($cacheDir | path exists) {
       mkdir $cacheDir
     }
