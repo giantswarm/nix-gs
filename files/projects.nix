@@ -49,6 +49,7 @@ in [
   "architect"
   "releases"
   "mc-bootstrap"
+  "mctl"
   "cluster"
   "cluster-aws"
   "cluster-api-provider-aws"
