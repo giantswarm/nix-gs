@@ -1,8 +1,8 @@
 {
   "owner": "giantswarm",
   "repo": "kubectl-gs",
-  "version": "5.6.3",
+  "version": "5.6.4",
   "sourceType": "github",
-  "hash": "sha256-sYd19OjcFs95ctmB6bSiyxenBf5Z/3wBRyWKTbTmO4c=",
-  "vendorHash": "sha256-niFPgWXitVmhRPM71J54wAda9WQIrzgUGgAnqXh55rI="
+  "hash": "sha256-I7l6f6ftvx8lFduXDl2L0KRVwHcMKGKgBtMSJvQjajo=",
+  "vendorHash": "sha256-o51xYS3LsySxiMIaUlfLii/XkoDM0CDIpMoauseeMAc="
 }
