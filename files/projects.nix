@@ -65,6 +65,8 @@ in [
   "micrologger"
   "cluster-apps-operator"
 
+  "kaas"
+
   "muster"
   "mcp-oauth"
   "mcp-capi"
