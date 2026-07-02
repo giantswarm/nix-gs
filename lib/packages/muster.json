@@ -1,8 +1,8 @@
 {
   "owner": "giantswarm",
   "repo": "muster",
-  "version": "0.20.0",
+  "version": "0.22.1",
   "sourceType": "github",
-  "hash": "sha256-vkc99C8FV7K1gQWu5FK2/5qvD1i/HcXrbwgix5Uvlzo=",
-  "vendorHash": "sha256-ny5LcPLyqUeh6D43ibLx9aBn1Fimq9vFVuRGazG+Tkc="
+  "hash": "sha256-3LIP5Bupaj0R5cX+SM9FvKOYjrPNzpDVcRTEaSIsMB8=",
+  "vendorHash": "sha256-78K3zjpbZGiBN1qEKFYTvbZBX/UJx4/zmhzmJ6hhLoU="
 }
