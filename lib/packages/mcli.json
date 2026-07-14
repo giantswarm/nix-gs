@@ -1,8 +1,8 @@
 {
   "owner": "giantswarm",
   "repo": "mcli",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "sourceType": "github",
-  "hash": "sha256-ILuOfk3xATGOx9ahNAhrIpRsR1HzH6NR85DJ2ufuwW4=",
-  "vendorHash": "sha256-EJcBVTCK28UDuRNgqOsCm10kVSkVfUMKtUszMHIYeUo="
+  "hash": "sha256-TMfHso5x/t1GuBPT0HomlM0LMqU9gnRYrnRRpDbWGyI=",
+  "vendorHash": "sha256-FcS7TOoXJ1v1K5tg2DfYkEBrMHkbYHesIQ0FQ5wQ1GY="
 }
