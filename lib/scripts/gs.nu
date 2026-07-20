@@ -65,9 +65,28 @@ module gs {
 
     let clustersFile = [$cacheDir $"($mc)_clusters.json"] | path join
 
-    if not ($clustersFile | path exists) {
+    # A previous run may have written a 0-byte file when the fetch failed
+    # (e.g. a login or connectivity issue). Treat such a file as an invalid
+    # cache and re-fetch, otherwise `open` yields nothing and `get items`
+    # crashes with "nothing doesn't support cell paths".
+    if not (cache-valid $clustersFile) {
       do -c { tsh kube login $mc }
-      kubectl get clusters.cluster.x-k8s.io -A --output json out> $clustersFile
+
+      # `kubectl` can exit non-zero (e.g. an API server timeout), which would
+      # abort the whole block here. Swallow the error with `try` so we can
+      # inspect the result and skip this MC gracefully instead.
+      try {
+        kubectl get clusters.cluster.x-k8s.io -A --output json out> $clustersFile
+      }
+
+      # If the fetch produced no usable data, remove the poisoned cache file
+      # so it is retried on the next run, and skip this MC instead of
+      # aborting the whole report.
+      if not (cache-valid $clustersFile) {
+        print $"  (ansi yellow)⚠ No cluster data for ($mc); skipping.(ansi reset)"
+        rm --force $clustersFile
+        return []
+      }
     }
 
     (open $clustersFile
@@ -107,6 +126,12 @@ module gs {
         error make {msg: $"Cannot parse major version from: ($version)"}
       }
     }
+  }
+
+  # Returns true when the cache file exists and is non-empty. A 0-byte file
+  # indicates a failed fetch and must be treated as an invalid cache.
+  def cache-valid [file: string]: nothing -> bool {
+    ($file | path exists) and ((ls $file | get 0.size) > 0B)
   }
 
   def get-provider [app: string]: nothing -> string {
