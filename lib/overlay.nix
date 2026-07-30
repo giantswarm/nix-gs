@@ -8,4 +8,5 @@ final: prev: {
   devctl = final.callPackage ./packages/devctl.nix { };
   konfigure = final.callPackage ./packages/konfigure.nix { };
   mcli = final.callPackage ./packages/mcli.nix { };
+  gitsemver = final.callPackage ./packages/gitsemver.nix { };
 }
