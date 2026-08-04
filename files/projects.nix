@@ -14,7 +14,10 @@ in [
   (rec {
     name = "nix-gs";
     path = "${workDir}/${name}";
-    ripple = true;
+    # Cascade membership is a tag, not a boolean: nix-home's projectSubmodule
+    # declares `tags`, and ripple selects on `"ripple" in tags`. A bare
+    # `ripple = true` here fails nix-home's eval outright.
+    tags = [ "ripple" ];
     repos = [
       {
         name = "origin";
@@ -23,7 +26,6 @@ in [
       {
         name = "github";
         url = "git@github.com:giantswarm/${name}.git";
-        ripple = true;
       }
     ];
   })
