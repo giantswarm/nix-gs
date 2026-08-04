@@ -32,15 +32,25 @@ Run built binary:
 
 All packages in `lib/packages/` follow the same pattern:
 - Use `buildGoModule` for Go binaries
-- Fetch source from GitHub with `fetchFromGitHub` (or `builtins.fetchGit` for private repos like opsctl)
+- Fetch source from GitHub with `fetchFromGitHub`, tag derived from `version`
 - Set `CGO_ENABLED = 0` for static builds
 - Include `vendorHash` for Go module dependencies
 
+Each package reads `version`/`hash`/`vendorHash` from a sibling `.json` file. The
+`.nix` file spells out the fetcher call; the `.json` file carries only values that
+change per release.
+
+`opsctl` is the only private repo. It uses `fetchFromGitHub` with `private = true`
+so its source stays a fixed-output derivation -- substitutable, and fetched at
+build time rather than during evaluation. Never use `builtins.fetchGit` here: it
+fetches at eval time as the invoking user, which breaks unattended rebuilds under
+credential-less service accounts and defeats the binary cache. See README
+"Private sources" for the `NIX_GITHUB_PRIVATE_*` daemon environment it needs.
+
 To update a package version:
-1. Update `version` field
-2. Update `rev` in `src` (if using fetchFromGitHub)
-3. Update `hash` in `src` - set to empty string `""` first, build will fail with correct hash
-4. Update `vendorHash` - same process, set to `""` and get correct value from build failure
+1. Update `version` field (the git tag is derived as `v${version}`)
+2. Update `hash` - set to empty string `""` first, build will fail with correct hash
+3. Update `vendorHash` - same process, set to `""` and get correct value from build failure
 
 ### Home Manager Modules
 

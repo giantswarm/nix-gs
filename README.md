@@ -101,6 +101,54 @@ If the script fails, you can update packages manually:
 7. Copy the vendorHash and run the build to verify
 
 
+## Private sources
+
+`opsctl` lives in a private repository. It is still fetched the same way as every
+other package -- `fetchFromGitHub`, with `private = true` -- so the source is a
+fixed-output derivation: pinned by `hash`, fetched at build time, and
+substitutable from a binary cache.
+
+That last property is the point. Any host that can reach a cache holding the
+source (or the built `opsctl`) needs **no GitHub credentials at all**, and
+evaluation never touches the network. Unattended rebuilds under a service account
+work.
+
+Credentials are only needed to *realise* the source from scratch -- the first
+build of a new version, or a `hash` update. `private = true` authenticates with a
+netrc built from two environment variables:
+
+```
+NIX_GITHUB_PRIVATE_USERNAME   your GitHub username
+NIX_GITHUB_PRIVATE_PASSWORD   a token with read access to giantswarm/opsctl
+```
+
+These must be set for the process that **runs the build**. With multi-user Nix
+that is the `nix-daemon`, not your shell -- exporting them in your terminal has
+no effect. On NixOS, keep the token out of the world-readable Nix store by
+passing it through a file:
+
+```nix
+systemd.services.nix-daemon.serviceConfig.EnvironmentFile = "/run/secrets/nix-github-private";
+```
+
+where that file contains the two `NAME=value` lines. Then
+`systemctl restart nix-daemon`.
+
+Without them, the build fails in `netrcPhase` naming both variables. Everything
+up to that point -- evaluation, `nix flake check` on other packages, and any
+build whose source is already in the store or a cache -- is unaffected.
+
+### Why not `builtins.fetchGit`
+
+`opsctl` used to use it. `builtins.fetchGit` fetches during *evaluation*, in the
+client process, using the invoking user's ambient git credentials. That makes
+every evaluator need GitHub access, makes the result non-substitutable, and gives
+different results for different users on one machine. An unattended
+`nixos-rebuild` running as a credential-less service account fails before any
+build starts, with a `could not read Username for 'https://github.com'` buried in
+an unrelated evaluation trace. Do not reintroduce it.
+
+
 ## Run GS scripts
 
 ### Versions report
