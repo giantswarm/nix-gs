@@ -4,22 +4,21 @@
 # Updates packages by fetching latest versions from GitHub and computing Nix hashes
 #
 # JSON Schema:
-#   Common fields (required):
+#   Required fields:
 #     - version: string      Current package version
-#     - sourceType: string   "github" or "git"
+#     - sourceType: string   Must be "github"
 #     - vendorHash: string   Nix hash for Go vendor dependencies
-#
-#   GitHub source (sourceType: "github"):
 #     - owner: string        GitHub repository owner
 #     - repo: string         GitHub repository name
 #     - hash: string         Nix hash for source tarball
 #
-#   Git source (sourceType: "git"):
-#     - url: string          Git repository URL
-#     - rev: string          Git revision (commit hash)
-#
 #   Optional:
 #     - tagPrefix: string    Version tag prefix (default: "v")
+#
+# "github" is the only source type, deliberately. A private repo is still a
+# GitHub source -- see README "Private sources". Do not add a source type backed
+# by builtins.fetchGit or any other evaluation-time fetcher: those make every
+# evaluator need credentials and are not substitutable.
 
 # Paths
 const SCRIPT_PATH = path self
@@ -27,12 +26,10 @@ const PACKAGES_DIR = "lib/packages"
 const JSON_EXT = ".json"
 
 # Source types
-const SOURCE_TYPE_GIT = "git"
 const SOURCE_TYPE_GITHUB = "github"
 
 # Git patterns
 const DEFAULT_TAG_PREFIX = "v"
-const GIT_TAG_REF_PATTERN = "\trefs/tags/"
 
 # Nix build
 const FLAKE_PKG_PREFIX = ".#"
@@ -43,9 +40,10 @@ const HASH_REGEX = 'got:\s+(sha256-[A-Za-z0-9+/=]+)'
 const ERROR_PREVIEW_LENGTH = 500
 
 # Validation
-const REQUIRED_FIELDS = ["version", "sourceType", "vendorHash"]
-const GITHUB_REQUIRED_FIELDS = ["owner", "repo", "hash"]
-const GIT_REQUIRED_FIELDS = ["url", "rev"]
+const REQUIRED_FIELDS = ["version", "sourceType", "vendorHash", "owner", "repo", "hash"]
+
+# Hint shown when a private source cannot be fetched by the build process
+const PRIVATE_CREDS_MARKER = "NIX_GITHUB_PRIVATE_"
 
 # Main entry point
 def main [
@@ -183,55 +181,26 @@ def print-summary [results: list<record>]: nothing -> nothing {
 def load-package-json [path: string]: nothing -> record {
     let data = open $path
 
-    # Validate common required fields
     for field in $REQUIRED_FIELDS {
         if ($field not-in $data) {
             error make { msg: $"Missing required field '($field)' in ($path)" }
         }
     }
 
-    # Validate source-type-specific fields
-    let extra_fields = if $data.sourceType == $SOURCE_TYPE_GITHUB {
-        $GITHUB_REQUIRED_FIELDS
-    } else if $data.sourceType == $SOURCE_TYPE_GIT {
-        $GIT_REQUIRED_FIELDS
-    } else {
-        error make { msg: $"Unknown sourceType '($data.sourceType)' in ($path)" }
-    }
-
-    for field in $extra_fields {
-        if ($field not-in $data) {
-            error make { msg: $"Missing required field '($field)' for ($data.sourceType) source in ($path)" }
+    if $data.sourceType != $SOURCE_TYPE_GITHUB {
+        error make {
+            msg: $"Unsupported sourceType '($data.sourceType)' in ($path); only '($SOURCE_TYPE_GITHUB)' is supported"
         }
     }
 
     $data
 }
 
-# Fetch latest version from GitHub or git
+# Fetch latest version from GitHub
 def fetch-latest-version [meta: record]: nothing -> record {
     let prefix = $meta.tagPrefix? | default $DEFAULT_TAG_PREFIX
-    if $meta.sourceType == $SOURCE_TYPE_GIT {
-        fetch-git-latest $meta.url $prefix
-    } else {
-        fetch-github-latest $meta.owner $meta.repo $prefix
-    }
-}
 
-# Fetch latest version via git (any git repository)
-def fetch-git-latest [url: string, prefix: string]: nothing -> record {
-    let latest = git ls-remote --tags --refs $url
-        | lines
-        | parse $"{rev}($GIT_TAG_REF_PATTERN){tag}"
-        | where { $in.tag | str starts-with $prefix }
-        | each {|row|
-            let version = $row.tag | str replace -r $"^($prefix)" ""
-            $row | insert version $version
-        }
-        | sort-by-semver
-        | last
-
-    { version: $latest.version, rev: $latest.rev }
+    fetch-github-latest $meta.owner $meta.repo $prefix
 }
 
 # Fetch latest version from GitHub using gh CLI
@@ -324,23 +293,14 @@ def compute-and-update-hashes [
         # Prepare updated meta with new version and empty hashes
         let updated = $meta
             | upsert version $latest.version
-            | if $meta.sourceType == $SOURCE_TYPE_GIT {
-                $in | upsert rev $latest.rev
-            } else {
-                $in | upsert hash ""
-            }
+            | upsert hash ""
             | upsert vendorHash ""
 
         save-package-json $json_path $updated
 
-        # Compute source hash (only for github)
-        let with_source_hash = if $meta.sourceType == $SOURCE_TYPE_GITHUB {
-            print "  Computing source hash..."
-            let hash = parse-hash-from-build $name "source"
-            $updated | upsert hash $hash
-        } else {
-            $updated
-        }
+        print "  Computing source hash..."
+        let source_hash = parse-hash-from-build $name "source"
+        let with_source_hash = $updated | upsert hash $source_hash
 
         save-package-json $json_path $with_source_hash
 
@@ -381,6 +341,16 @@ def parse-hash-from-build [name: string, hash_type: string]: nothing -> string {
     let hash_lines = $stderr | lines | where { $in | str contains $HASH_PATTERN }
 
     if ($hash_lines | is-empty) {
+        # A private source that the build process cannot authenticate never gets
+        # far enough to report a hash. Say so, instead of blaming the parser.
+        if ($stderr | str contains $PRIVATE_CREDS_MARKER) {
+            print $"  (ansi red)Error: the build process cannot authenticate to fetch ($name)(ansi reset)"
+            print $"  ($name) has a private source. The nix-daemon -- not your shell --"
+            print $"  needs ($PRIVATE_CREDS_MARKER)USERNAME and ($PRIVATE_CREDS_MARKER)PASSWORD set."
+            print $"  See README \"Private sources\"."
+            error make { msg: $"Missing ($PRIVATE_CREDS_MARKER)* in the build environment for ($name)" }
+        }
+
         print $"  (ansi red)Error: Could not find hash in build output(ansi reset)"
         print $"  stderr: ($stderr | str substring 0..($ERROR_PREVIEW_LENGTH))"
         error make { msg: $"Could not parse ($hash_type) hash from nix build output for ($name)" }
