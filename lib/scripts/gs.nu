@@ -1,14 +1,37 @@
 module opsctl {
+  # opsctl keeps a mutable clone of the installations repo under its config dir
+  # and never locks it, so a second opsctl running at the same time (muster
+  # starts one) can leave that clone without a valid HEAD. opsctl then aborts
+  # with "Repository does not exist", which would kill a multi-minute report.
+  # `--no-cache` cannot repair it -- a broken clone fails opsctl's constructor
+  # before that flag is honoured -- but discarding the clone forces a fresh one.
   export def "gs mcs" [
       --provider: string = ''
       --pipeline (-p): string = ''
       --customer (-c): string = ''
     ]: nothing -> list<record> {
-    (opsctl list installations --provider $provider --pipeline $pipeline --customer $customer
+    let raw = try {
+      list-installations $provider $pipeline $customer
+    } catch {
+      print $"  (ansi yellow)⚠ opsctl failed; discarding its installations clone and retrying once.(ansi reset)"
+      rm --recursive --force (installations-clone)
+      list-installations $provider $pipeline $customer
+    }
+
+    ($raw
       | lines
       | skip 1
       | split column --regex '\s\s+'
       | rename codename provider pipeline customer ae hostname created repository)
+  }
+
+  def list-installations [provider: string, pipeline: string, customer: string] {
+    opsctl list installations --provider $provider --pipeline $pipeline --customer $customer
+  }
+
+  # Local clone of the installations repo that opsctl maintains as its cache.
+  def installations-clone []: nothing -> string {
+    [$env.HOME ".config" "opsctl" "github.com" "giantswarm" "installations"] | path join
   }
 
   export def "gs mcs aws" [
@@ -153,7 +176,13 @@ module gs {
       | sort-by version)
   }
 
+  # One unfiltered opsctl call already covers every provider, so filter here
+  # instead of invoking opsctl once per provider: same set of MCs, a quarter of
+  # the work, and a quarter of the chances of tripping over opsctl's unlocked
+  # installations clone. Note the provider names are opsctl's, not the cluster-app
+  # ones used elsewhere in this module ("vsphere"/"cloud-director", not
+  # "capv"/"capvcd"), and matching is exact so "capa-test" stays excluded.
   export def all-mcs []: nothing -> list<record> {
-    (gs mcs capa) ++ (gs mcs capz) ++ (gs mcs capv) ++ (gs mcs capvcd)
+    gs mcs | where provider in ["capa" "capz" "vsphere" "cloud-director"]
   }
 }
