@@ -75,9 +75,6 @@ in [
   "microerror"
   "micrologger"
   "cluster-apps-operator"
-
-  "kaas"
-
   "muster"
   "mcp-oauth"
   "mcp-capi"
@@ -90,4 +87,10 @@ in [
 
   "aws-account-setup"
   "giantswarm-aws-account-prerequisites"
-])
+]) ++ [
+  # `kaas` has no `main`: `initial` is its only branch and its remote HEAD.
+  # nix-home's projectSubmodule defaults `branch` to "main", so without this
+  # override `grove clone` fetches the bare repo and then fails to create the
+  # default-branch worktree (`fatal: invalid reference: main`).
+  (gsProject "kaas" // { branch = "initial"; })
+]
