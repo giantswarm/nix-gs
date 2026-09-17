@@ -21,6 +21,6 @@ buildGoModule rec {
 
   ldflags = [
     "-w"
-    "-X 'github.com/giantswarm/gitsemver/v2/pkg/project.gitSHA=${src.rev}'"
+    "-X 'github.com/giantswarm/gitsemver/v3/pkg/project.gitSHA=${src.rev}'"
   ];
 }
