@@ -93,7 +93,16 @@ module gs {
     # cache and re-fetch, otherwise `open` yields nothing and `get items`
     # crashes with "nothing doesn't support cell paths".
     if not (cache-valid $clustersFile) {
-      do -c { tsh kube login $mc }
+      # An MC can be listed by opsctl yet unknown to Teleport (e.g. not yet
+      # registered). Skip it rather than aborting the report -- and never
+      # fall through to kubectl, which would still target the previous MC's
+      # context and cache that MC's clusters under this name.
+      try {
+        tsh kube login $mc
+      } catch {
+        print $"  (ansi yellow)⚠ tsh login to ($mc) failed; skipping.(ansi reset)"
+        return []
+      }
 
       # `kubectl` can exit non-zero (e.g. an API server timeout), which would
       # abort the whole block here. Swallow the error with `try` so we can
