@@ -84,6 +84,7 @@ in [
   "mcp-debug"
   "mcp-giantswarm-apps"
   "mcp-teleport"
+  "claudebox"
 
   "aws-account-setup"
   "giantswarm-aws-account-prerequisites"
