@@ -25,6 +25,7 @@ Run built binary:
 ### Flake Structure
 
 - `flake.nix` - Main entry point exposing packages and Home Manager modules
+- `lib/package-names.nix` - Package list, discovered from the `lib/packages/*.nix` files
 - `lib/overlay.nix` - Nixpkgs overlay that adds all packages
 - `lib/packages/*.nix` - Individual package definitions using `buildGoModule`
 
@@ -47,6 +48,11 @@ fetches at eval time as the invoking user, which breaks unattended rebuilds unde
 credential-less service accounts and defeats the binary cache. See README
 "Private sources" for the `NIX_GITHUB_PRIVATE_*` daemon environment it needs.
 
+To add a package, add `lib/packages/<name>.nix` and `<name>.json`. Nothing else
+needs listing: the overlay, the flake's `packages`/`checks` and the `packages`
+Home Manager module all derive from `lib/package-names.nix`. Extra `callPackage`
+arguments go in the `overrides` set in `lib/overlay.nix`.
+
 To update a package version:
 1. Update `version` field (the git tag is derived as `v${version}`)
 2. Update `hash` - set to empty string `""` first, build will fail with correct hash
@@ -56,6 +62,7 @@ To update a package version:
 
 Located in `nixos/`:
 - `projects.nix` - Imports project list from `files/projects.nix`
+- `packages.nix` - Installs every package; expects `pkgs` to carry the overlay
 - `golang.nix` - Sets `GOPRIVATE=github.com/giantswarm/*`
 
 ### Scripts

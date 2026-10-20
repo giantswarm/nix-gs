@@ -11,6 +11,7 @@
     inputs@{ nixpkgs, flake-utils, ... }:
     let
       overlay = import ./lib/overlay.nix { inherit inputs; };
+      packageNames = import ./lib/package-names.nix;
     in
     (flake-utils.lib.eachDefaultSystem (
       system:
@@ -19,20 +20,18 @@
           inherit system;
           overlays = [ overlay ];
         };
+        packages = nixpkgs.lib.genAttrs packageNames (name: pkgs.${name});
       in
       {
-        packages = {
-          inherit (pkgs) opsctl kubectl-gs muster envctl architect devctl konfigure gitsemver agentlab;
-        };
-        checks = {
-          inherit (pkgs) opsctl kubectl-gs muster envctl architect devctl konfigure gitsemver agentlab;
-        };
+        inherit packages;
+        checks = packages;
       }
     ))
     // {
       inherit overlay;
       homeManagerModules = {
         projects = import ./nixos/projects.nix;
+        packages = import ./nixos/packages.nix;
         golang = import ./nixos/golang.nix;
       };
     };
