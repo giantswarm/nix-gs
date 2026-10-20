@@ -37,7 +37,7 @@ const HASH_PATTERN = "got:"
 const HASH_REGEX = 'got:\s+(sha256-[A-Za-z0-9+/=]+)'
 
 # Output
-const ERROR_PREVIEW_LENGTH = 500
+const ERROR_PREVIEW_LINES = 20
 
 # Validation
 const REQUIRED_FIELDS = ["version", "sourceType", "vendorHash", "owner", "repo", "hash"]
@@ -352,7 +352,9 @@ def parse-hash-from-build [name: string, hash_type: string]: nothing -> string {
         }
 
         print $"  (ansi red)Error: Could not find hash in build output(ansi reset)"
-        print $"  stderr: ($stderr | str substring 0..($ERROR_PREVIEW_LENGTH))"
+        # The actual failure is at the end of nix output; the start is just build noise.
+        print $"  stderr \(last ($ERROR_PREVIEW_LINES) lines\):"
+        print ($stderr | lines | last $ERROR_PREVIEW_LINES | str join "\n")
         error make { msg: $"Could not parse ($hash_type) hash from nix build output for ($name)" }
     }
 
