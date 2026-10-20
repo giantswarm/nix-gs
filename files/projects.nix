@@ -86,6 +86,7 @@ in [
   "mcp-teleport"
   "claudebox"
   "claudebox-image"
+  "agentlab"
 
   "aws-account-setup"
   "giantswarm-aws-account-prerequisites"
