@@ -22,10 +22,10 @@
       in
       {
         packages = {
-          inherit (pkgs) opsctl kubectl-gs muster envctl architect devctl konfigure gitsemver;
+          inherit (pkgs) opsctl kubectl-gs muster envctl architect devctl konfigure gitsemver agentlab;
         };
         checks = {
-          inherit (pkgs) opsctl kubectl-gs muster envctl architect devctl konfigure gitsemver;
+          inherit (pkgs) opsctl kubectl-gs muster envctl architect devctl konfigure gitsemver agentlab;
         };
       }
     ))

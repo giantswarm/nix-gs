@@ -11,4 +11,5 @@ final: prev: {
   devctl = final.callPackage ./packages/devctl.nix { };
   konfigure = final.callPackage ./packages/konfigure.nix { };
   gitsemver = final.callPackage ./packages/gitsemver.nix { };
+  agentlab = final.callPackage ./packages/agentlab.nix { };
 }
