@@ -1,0 +1,28 @@
+{ pkgs, buildGoModule }:
+let
+  meta = builtins.fromJSON (builtins.readFile ./beekeeper.json);
+in
+buildGoModule rec {
+  pname = "beekeeper";
+  version = meta.version;
+
+  src = pkgs.fetchFromGitHub {
+    owner = meta.owner;
+    repo = meta.repo;
+    rev = "v${version}";
+    hash = meta.hash;
+  };
+
+  vendorHash = meta.vendorHash;
+
+  env.CGO_ENABLED = 0;
+
+  doCheck = false;
+
+  subPackages = [ "." ];
+
+  ldflags = [
+    "-w"
+    "-X 'github.com/giantswarm/beekeeper/pkg/project.version=${version}'"
+  ];
+}

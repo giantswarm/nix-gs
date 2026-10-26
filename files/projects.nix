@@ -88,6 +88,7 @@ in [
   "claudebox-image"
   "agentlab"
   "github"
+  "beekeeper"
 
   "aws-account-setup"
   "giantswarm-aws-account-prerequisites"
