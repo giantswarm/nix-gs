@@ -89,6 +89,7 @@ in [
   "agentlab"
   "github"
   "beekeeper"
+  "oncall-shift-reporter"
 
   "aws-account-setup"
   "giantswarm-aws-account-prerequisites"
