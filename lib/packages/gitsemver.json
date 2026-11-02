@@ -1,8 +1,8 @@
 {
   "owner": "giantswarm",
   "repo": "gitsemver",
-  "version": "3.0.9",
+  "version": "3.0.12",
   "sourceType": "github",
-  "hash": "sha256-72cOQJLrs35FDaKFggwYP3Drg4kLcjqB8045DEhYZ7s=",
-  "vendorHash": "sha256-l8rvDRrTY8j+uADyA6+7cHWM16eBFIwhdz15E/abdn4="
+  "hash": "sha256-ym/dydvIrJjYU1etWHqBTjKj9J3E2TD+u03cvbC1+ig=",
+  "vendorHash": "sha256-dIKGEU25ebn/RW5KIiFkot1wbyImxgxHTfUEj3TCESM="
 }
