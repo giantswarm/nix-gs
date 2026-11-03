@@ -1,8 +1,8 @@
 {
   "owner": "giantswarm",
   "repo": "beekeeper",
-  "version": "0.173.2",
+  "version": "0.174.6",
   "sourceType": "github",
-  "hash": "sha256-2IdFSzhlhwMw+0k4wqL3Dfiu/pGFLzLISAGp7Vd4l1Y=",
+  "hash": "sha256-14gbOiZfJS43lFM9K1Ze8iqaYSTVJM7WewYIzQ5IpzQ=",
   "vendorHash": "sha256-nnal0tYdSVtGeaVpV3t7/x0ss7M/Kgu2THLX/rGQBJA="
 }

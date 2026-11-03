@@ -1,8 +1,8 @@
 {
   "owner": "giantswarm",
   "repo": "opsctl",
-  "version": "12.1.0",
+  "version": "12.1.1",
   "sourceType": "github",
-  "hash": "sha256-IEe4UpXjc87ouyPgZdaJ9E4nAaC27A6nLZLhEtYaBsc=",
-  "vendorHash": "sha256-2RJVYo2/bHgaahh0NBvCEyn5SS8rFuxnySXvi36YOiE="
+  "hash": "sha256-8WuDtfA3A+RACrQ5c0Gxof4iEqVdgez6L9e6RKVq7o8=",
+  "vendorHash": "sha256-pDmVc00h7bJbtNaMvM0kAoxch9VT+bcxhO94naZ+gcM="
 }
