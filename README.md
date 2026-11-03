@@ -168,3 +168,17 @@ an unrelated evaluation trace. Do not reintroduce it.
 ```
 ./bin/gs-cluster-count-per-version.nu --mc gazelle
 ```
+
+### Clusters needing an upgrade for a fix
+
+Pass the first release of each major line that ships the fix. Clusters below
+it, or on an older major with no fixed release, are listed along with the
+release to upgrade to. For example, for Flatcar 4757.2.2:
+
+```
+./bin/gs-clusters-needing-upgrade.nu 35.3.0 36.2.0
+./bin/gs-clusters-needing-upgrade.nu 35.3.0 36.2.0 --by-customer
+```
+
+EKS clusters are not covered, since `all-clusters` only lists CAPA, CAPZ, CAPV
+and CAPVCD clusters.

@@ -70,6 +70,7 @@ Located in `nixos/`:
 Nushell scripts in `bin/` for cluster reporting:
 - `gs-versions-report.nu` - Report cluster versions across providers
 - `gs-cluster-count-per-version.nu` - Count clusters per version
+- `gs-clusters-needing-upgrade.nu` - List clusters below the releases that ship a fix
 
 Scripts use shared functions from `lib/scripts/gs.nu` which wraps `opsctl` commands.
 
