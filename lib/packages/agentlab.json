@@ -1,8 +1,8 @@
 {
   "owner": "giantswarm",
   "repo": "agentlab",
-  "version": "0.139.18",
+  "version": "0.140.3",
   "sourceType": "github",
-  "hash": "sha256-EWCzd+cbSh80HxKsuIUvmrnUxnztgnsou/pHUeakrxc=",
-  "vendorHash": "sha256-SYMM+1kW+jBmHXjLET5utYj+Mveo0iQObH9zhZWelUE="
+  "hash": "sha256-8F2Hn4RsRbdeVW+sK0g34Ohq4YOAi2Oht49K1tSOtCk=",
+  "vendorHash": "sha256-kN73rx+82WGv06YWQnbrTOt7RM8HAw2rxK+6odObnsE="
 }

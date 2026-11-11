@@ -1,8 +1,8 @@
 {
   "owner": "giantswarm",
   "repo": "architect",
-  "version": "8.6.44",
+  "version": "8.6.47",
   "sourceType": "github",
-  "hash": "sha256-VZMO3HnH3CxcrXe49rx1p8aWiC02JcS7W82LzHfdztY=",
-  "vendorHash": "sha256-vA2qCBBOP3LayK/6jcmKLSefS04TSPT14BWTfDdf5pE="
+  "hash": "sha256-jBwobrtbRVghx7b/BUgboRylEnRdbU8Zh803XPMLzkw=",
+  "vendorHash": "sha256-hILfXJvZTDzpn41gkl+eAvcVCPxfKwAav9OfWMUV1qA="
 }
