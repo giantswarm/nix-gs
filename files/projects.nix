@@ -90,6 +90,7 @@ in [
   "github"
   "beekeeper"
   "oncall-shift-reporter"
+  "area-oncall-scheduler"
 
   "aws-account-setup"
   "giantswarm-aws-account-prerequisites"
