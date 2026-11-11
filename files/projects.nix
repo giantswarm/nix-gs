@@ -91,6 +91,7 @@ in [
   "beekeeper"
   "oncall-shift-reporter"
   "area-oncall-scheduler"
+  "pagerduty-config"
 
   "aws-account-setup"
   "giantswarm-aws-account-prerequisites"
