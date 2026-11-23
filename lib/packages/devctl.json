@@ -1,8 +1,8 @@
 {
   "owner": "giantswarm",
   "repo": "devctl",
-  "version": "8.167.15",
+  "version": "8.169.1",
   "sourceType": "github",
-  "hash": "sha256-dW6aM3wm7kVGOdzip90aEmrJuAZqhGLOyxsNPDr5Rww=",
-  "vendorHash": "sha256-cbuKGRPbXzXcjToLQbMPP/QuFpWksw8JFc8yEInGXBY="
+  "hash": "sha256-Ppm83wmy1Lha+0WP88JvzNxP9EO7Wya835QH4ndTyY4=",
+  "vendorHash": "sha256-Wt7TkGJyhZFrV4liuK0nqsw4HX4k2NcZJuKtCOtWp2w="
 }
