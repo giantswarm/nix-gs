@@ -1,8 +1,8 @@
 {
   "owner": "giantswarm",
   "repo": "konfigure",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "sourceType": "github",
-  "hash": "sha256-N6UjQVLyrtaaCKozcwbg7IP73hUwIKOa3UeFaEz150g=",
-  "vendorHash": "sha256-bVdiUuK3HHhOCS9fp7H5/46b2FSO89Oy9s8U1kEoU1I="
+  "hash": "sha256-niFSAU30gCKCXxxIekMUEOXKjhAV3rFiTxzdhm2BVq8=",
+  "vendorHash": "sha256-VyevOkzS+Enx5cmTrWAeA2ITRb9/nUWylSm2JpkI9zE="
 }
